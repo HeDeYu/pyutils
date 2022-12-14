@@ -29,6 +29,8 @@ readme = read("README.rst")
 changelog = read("CHANGELOG.rst")
 
 install_requires = [
+    # "PyYAML>=5.4.1",
+    # "loguru>=0.5.3",
     # eg: "numpy==1.11.1", "six>=1.7",
 ]
 
@@ -69,7 +71,7 @@ def setup_package():
         include_package_data=True,
         keywords="pyutils",
         name="pyutils",
-        url="http://192.168.1.101/Deyu He/pyutils",
+        url="http://192.168.16.33/HeDeYu/pyutils",
         version=versioneer.get_version(),
         package_dir={"": "src"},
         zip_safe=False,
