@@ -12,6 +12,7 @@ from typing import Iterator, List, Union
 import yaml
 
 __all__ = [
+    "mkdir",
     "glob_dir",
     "load_xml",
     "dump_xml",
@@ -20,6 +21,10 @@ __all__ = [
     "load_json",
     "dump_json",
 ]
+
+
+def mkdir(path, parents=True, exist_ok=True):
+    Path(str(path)).mkdir(parents=parents, exist_ok=exist_ok)
 
 
 def glob_dir(
