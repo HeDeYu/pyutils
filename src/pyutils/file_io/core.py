@@ -5,14 +5,17 @@
 
 import json
 import os
+import shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Iterator, List, Union
 
 import yaml
+from loguru import logger
 
 __all__ = [
     "mkdir",
+    "copy_related_files",
     "glob_dir",
     "load_xml",
     "dump_xml",
@@ -175,3 +178,42 @@ def dump_json(data, filename, method="w", indent=None, safe_mode=False, **kwargs
 
     if safe_mode:
         os.rename(temp_file_name, filename)
+
+
+def copy_related_files(
+    src_dir,
+    dst_dir,
+    ref_dir,
+    copy=True,
+    src_suffix=None,
+    ref_suffix=None,
+    parents=True,
+    exist_ok=True,
+):
+    src_dir = Path(src_dir).absolute()
+    dst_dir = Path(dst_dir).absolute()
+    ref_dir = Path(ref_dir).absolute()
+    Path(str(ref_dir)).mkdir(parents=parents, exist_ok=exist_ok)
+    ref_file_list = list(
+        glob_dir(
+            ref_dir,
+            include_patterns=[f"*{ref_suffix}"] if ref_suffix is not None else None,
+        )
+    )
+    for ref_file_path in ref_file_list:
+
+        ref_file_name = ref_file_path.name
+        if ref_suffix is not None:
+            src_file_name = ref_file_name.split(ref_suffix)[0]
+        else:
+            src_file_name = ref_file_name
+        if src_suffix is not None:
+            src_file_name += src_suffix
+        src_file_path = Path(src_dir) / src_file_name
+
+        if not Path(src_file_path).exists():
+            logger.warning(f"{src_file_path} does not exist.")
+        elif copy:
+            shutil.copy(src_file_path, Path(dst_dir) / src_file_name)
+        else:
+            shutil.move(src_file_path, Path(dst_dir) / src_file_name)
