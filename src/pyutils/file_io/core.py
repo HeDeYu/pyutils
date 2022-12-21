@@ -16,6 +16,7 @@ from loguru import logger
 __all__ = [
     "mkdir",
     "append_file_name",
+    "replace_parent",
     "copy_related_files",
     "glob_dir",
     "load_xml",
@@ -34,6 +35,11 @@ def mkdir(path, parents=True, exist_ok=True):
 def append_file_name(path_, append_str):
     path_ = Path(path_)
     return str(path_.parent / Path(path_.stem + append_str).with_suffix(path_.suffix))
+
+
+def replace_parent(path_, target_prarent):
+    path_ = Path(path_)
+    return str(Path(target_prarent) / path_.name)
 
 
 def glob_dir(
