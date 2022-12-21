@@ -9,6 +9,7 @@ from collections.abc import Iterable
 
 __all__ = [
     "make_cyclic_iterator",
+    "get_shuffle",
 ]
 
 
