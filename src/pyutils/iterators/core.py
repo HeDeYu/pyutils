@@ -27,3 +27,14 @@ def make_cyclic_iterator(it, shuffle=True):
             if shuffle:
                 random.shuffle(it_)
             it_ = iter(it_)
+
+
+def get_shuffle(it):
+    assert isinstance(it, Iterable)
+    assert len(it)
+    cyclic_it = make_cyclic_iterator(it)
+    L = len(it)
+    ret = []
+    for _ in range(L):
+        ret.append(next(cyclic_it))
+    return ret

@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from loguru import logger
 
-from pyutils.iterators.core import make_cyclic_iterator
+from pyutils.iterators.core import get_shuffle, make_cyclic_iterator
 
 
 class TestIterators(TestCase):
@@ -30,3 +30,14 @@ class TestIterators(TestCase):
             count += 1
             if count == count_max:
                 break
+
+    def test_get_shuffle(self):
+        l_ = [1, 2, 3, 4, 5]
+        for _ in range(5):
+            ret = get_shuffle(l_)
+            logger.info(ret)
+
+        l_ = ["a", "b", "c", "d"]
+        for _ in range(5):
+            ret = get_shuffle(l_)
+            logger.info(ret)
