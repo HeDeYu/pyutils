@@ -32,6 +32,7 @@ install_requires = [
     # "PyYAML>=5.4.1",
     # "loguru>=0.5.3",
     # eg: "numpy==1.11.1", "six>=1.7",
+    "numpy",
 ]
 
 extras_require = {
